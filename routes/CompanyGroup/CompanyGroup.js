@@ -86,6 +86,35 @@ router.get('/AllCompanyGroup', async(req, res) => {
     }
 })
 
+//Getting One Company Group based on id
+router.get('/CompanyGroup/:id', async(req, res) => {
+  try {
+    let id = req.params.id;
+    console.log(id)
+    let companyGroup = await CompanyGroupSchema.findOne({_id : id});
+    if(companyGroup){
+      res.json({
+        message:"Company Group Fetched Successfully",
+        statusCode : 200,
+        companyGroup
+      })
+    }
+    else{
+       res.json({
+         message: "Error in fetching the Company Group",
+         statusCode: 403,
+       });
+    }
+
+  } catch (error) {
+     console.log(error, "Error in fetching a CompanyGroup");
+     res.json({
+       message: "Internal Server Error",
+       statusCode: 500,
+       error,
+     });
+  }
+})
 
 //Getting Company Group Name
 
